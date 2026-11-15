@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: nalamlink-ai
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: TZ
+        value: Asia/Kolkata
+      - key: DEMO_MODE
+        value: "true"
+      - key: DATA_MODE
+        value: demo
+      - key: OCR_ENABLED
+        value: "true"
