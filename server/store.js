@@ -249,7 +249,7 @@ export async function deleteRecord(patientId, collection, id) {
   const before = arr.length;
   db.patients[patientId][collection] = arr.filter((x) => x.id !== id);
   await saveDemo();
-  return db.patients[patientId][collection].length !== before;
+  return db.patients[patientId][collection]return db.patients[patientId][collection].length !== before;;
 }
 
 export async function addInvitation(patientId, invitation) {
