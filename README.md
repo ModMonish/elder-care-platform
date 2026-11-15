@@ -1,4 +1,29 @@
-# NalamLink AI 3.1 — Connected Elderly Care Operations Platform
+## Chosen Vertical
+Elderly Care & Medication Management Platform. NalamLink AI helps elderly people, family members and caregivers manage medicines and doctor appointments together, while the elder stays at the centre of their own care.
+
+## Approach and Logic
+- **Care circle with roles:** patient, family and caregiver can add and edit records. Clinicians have read-only access. Members join through a 6-digit invitation code that expires in 24 hours and is stored only as a hash.
+- **Dose tracking:** each medication creates scheduled doses. If a dose is not confirmed within a grace period (default 30 minutes, set by DOSE_GRACE_MINUTES), it becomes "missed" and the care circle is notified.
+- **Reminders:** members are notified about doses due within 10 minutes, missed doses, and appointments within 24 hours. Each notification has a unique ID, so the same alert is never sent twice.
+- **Mitra AI (Gemini):** builds daily summaries and doctor-visit briefs from the recorded care data only. It never diagnoses or changes medication. If the AI provider fails, a grounded local summary is shown instead.
+- **Safety and security:** input validation, rate limiting, secure headers, and API keys kept only on the server in environment variables.
+- **Accessibility:** large readable layout and a voice read-aloud option for answers.
+
+## How It Works
+1. Open the app and pick a role (demo mode uses synthetic data).
+2. Add medications and appointments, and mark doses as taken.
+3. Missed doses trigger follow-up notifications for family and caregivers (email when configured).
+4. Ask Mitra for a care summary or an appointment brief.
+5. Export a Care Passport to share with a doctor.
+
+## Assumptions
+- The public demo runs in demo mode with synthetic data only. No real patient data is used.
+- Email uses the Resend free test sender, which can deliver only to the account owner's address until a domain is verified.
+- Scheduled reminders need an external cron call with CRON_SECRET, because the free host sleeps when idle.
+- The app gives reminders and summaries, not medical advice. Users must follow the prescribing doctor's instructions.
+- Prescription OCR text must be checked against the original prescription.
+
+---# NalamLink AI 3.1 — Connected Elderly Care Operations Platform
 
 **A multi-layer care coordination product, deployable without Google Cloud credits.**
 
